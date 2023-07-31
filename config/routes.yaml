@@ -1,0 +1,9 @@
+app_logout:
+    path: /logout
+    methods: POST|GET
+
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
