@@ -11,6 +11,8 @@
 <div class="example-wrapper">
     <h1>Hello!</h1>
 
-    You're logged in, identified with "{{ user_identifier }}"
+    <p>You're logged in, identified with "{{ user_identifier }}".</p>
+
+    <p>The current tenant is <b>{{ tenant.name }}</b> with the ID <b>#{{ tenant.id }}</b> for the domain <b>{{ tenant.domain }}</b>.</p>
 </div>
 {% endblock %}
