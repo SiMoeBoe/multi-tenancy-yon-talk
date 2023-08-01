@@ -35,7 +35,7 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
-            'user_identifier' => $user->getUserIdentifier(),
+            'user' => $user,
             'tenant' => $this->tenantManager->getCurrentTenant(),
             'form' => $form,
             'blogPosts' => $blogPostRepository->findAll()

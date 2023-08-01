@@ -11,9 +11,16 @@
 <div class="example-wrapper">
     <h1>Hello!</h1>
 
-    <p>You're logged in, identified with "{{ user_identifier }}".</p>
+    <p>You're logged in, identified with "{{ user.userIdentifier }}".</p>
 
     <p>The current tenant is <b>{{ tenant.name }}</b> with the ID <b>#{{ tenant.id }}</b> for the domain <b>{{ tenant.domain }}</b>.</p>
+
+    <p>
+        Switch to other tenants:
+        {% for tenant in user.tenants %}
+        <a href="https://{{ tenant.domain }}">{{ tenant.name }}</a>
+        {% endfor %}
+    </p>
 
     <h2>Add new BlogPost</h2>
     {{ form(form) }}
