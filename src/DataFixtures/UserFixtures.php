@@ -15,11 +15,23 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $user = new User();
-        $user->setEmail('firstuser@test.local');
-        $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
-        $manager->persist($user);
+        $manager->persist($this->getUserForTenants('firstuser'));
+        $manager->persist($this->getUserForTenants('tenant1', [$this->getReference('tenant1.localhost')]));
+        $manager->persist($this->getUserForTenants('tenant2', [$this->getReference('tenant2.localhost')]));
+        $manager->persist($this->getUserForTenants('all', [$this->getReference('tenant1.localhost'), $this->getReference('tenant2.localhost')]));
 
         $manager->flush();
+    }
+
+    private function getUserForTenants(string $mailPrefix, array $tenants = []): User
+    {
+        $user = new User();
+        $user->setEmail($mailPrefix . '@test.local');
+        $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
+        foreach ($tenants as $tenant) {
+            $user->addTenant($tenant);
+        }
+
+        return $user;
     }
 }
