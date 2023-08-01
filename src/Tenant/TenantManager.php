@@ -4,19 +4,30 @@ namespace App\Tenant;
 
 use App\Entity\Tenant;
 use App\Repository\TenantRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class TenantManager
 {
     private Tenant $currentTenant;
 
     public function __construct(
-        private readonly TenantRepository $tenantRepository
+        private readonly TenantRepository $tenantRepository,
+        private readonly EntityManagerInterface $entityManager
     ){
     }
 
     public function getCurrentTenant(): Tenant
     {
         return $this->currentTenant;
+    }
+
+    private function setCurrentTenant(Tenant $tenant): void
+    {
+        $this->currentTenant = $tenant;
+
+        $this->entityManager->getFilters()
+            ->enable('tenant_aware')
+            ->setParameter('tenant', $tenant->getId());
     }
 
     /**
@@ -29,6 +40,6 @@ final class TenantManager
             throw new UnknownTenantException($domain);
         }
 
-        $this->currentTenant = $tenant;
+        $this->setCurrentTenant($tenant);
     }
 }
