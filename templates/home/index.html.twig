@@ -14,5 +14,14 @@
     <p>You're logged in, identified with "{{ user_identifier }}".</p>
 
     <p>The current tenant is <b>{{ tenant.name }}</b> with the ID <b>#{{ tenant.id }}</b> for the domain <b>{{ tenant.domain }}</b>.</p>
+
+    <h2>Add new BlogPost</h2>
+    {{ form(form) }}
+
+    <h2>All BlogPosts</h2>
+    {% for blogPost in blogPosts %}
+        <h3>{{ blogPost.getTitle() }}</h3>
+        <p>{{ blogPost.getContent() }}</p>
+    {% endfor %}
 </div>
 {% endblock %}
