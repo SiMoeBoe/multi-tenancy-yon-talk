@@ -26,7 +26,7 @@ final class TenantManager
         $this->currentTenant = $tenant;
 
         $this->entityManager->getFilters()
-            ->enable('tenant_aware')
+            ->getFilter('tenant_aware')
             ->setParameter('tenant', $tenant->getId());
     }
 
