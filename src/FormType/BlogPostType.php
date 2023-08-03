@@ -2,7 +2,7 @@
 
 namespace App\FormType;
 
-use App\Entity\BlogPost;
+use App\Entity\Tenant\BlogPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

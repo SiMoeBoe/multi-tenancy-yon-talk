@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\BlogPost;
-use App\Entity\User;
+use App\Entity\Landlord\User;
+use App\Entity\Tenant\BlogPost;
 use App\FormType\BlogPostType;
 use App\Repository\BlogPostRepository;
 use App\Tenant\TenantManager;

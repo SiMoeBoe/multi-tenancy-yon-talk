@@ -2,7 +2,7 @@
 
 namespace App\Tenant;
 
-use App\Entity\User;
+use App\Entity\Landlord\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputOption;

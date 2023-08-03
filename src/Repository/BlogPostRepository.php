@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\BlogPost;
+use App\Entity\Tenant\BlogPost;
 use App\Tenant\TenantManager;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,7 +24,7 @@ class BlogPostRepository extends ServiceEntityRepository
 
     public function save(BlogPost $blogPost, bool $flush = false): void
     {
-        $blogPost->setTenant($this->tenantManager->getCurrentTenant());
+        $blogPost->setTenantId($this->tenantManager->getCurrentTenant()->getId());
         $this->getEntityManager()->persist($blogPost);
 
         if ($flush) {

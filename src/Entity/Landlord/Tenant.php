@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Landlord;
 
 use App\Repository\TenantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
