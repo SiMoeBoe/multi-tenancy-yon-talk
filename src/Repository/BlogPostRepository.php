@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Tenant\BlogPost;
-use App\Tenant\TenantManager;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,14 +16,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BlogPostRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private readonly TenantManager $tenantManager)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, BlogPost::class);
     }
 
     public function save(BlogPost $blogPost, bool $flush = false): void
     {
-        $blogPost->setTenantId($this->tenantManager->getCurrentTenant()->getId());
         $this->getEntityManager()->persist($blogPost);
 
         if ($flush) {

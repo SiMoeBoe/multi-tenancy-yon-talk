@@ -3,15 +3,12 @@
 namespace App\Entity\Tenant;
 
 use App\Repository\BlogPostRepository;
-use App\Tenant\IsTenantSpecificEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BlogPostRepository::class)]
 class BlogPost
 {
-    use IsTenantSpecificEntity;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

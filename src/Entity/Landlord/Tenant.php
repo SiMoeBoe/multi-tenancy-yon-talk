@@ -21,6 +21,9 @@ class Tenant
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $database = null;
+
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'tenants')]
     private Collection $users;
 
@@ -55,6 +58,17 @@ class Tenant
     {
         $this->name = $name;
 
+        return $this;
+    }
+
+    public function getDatabase(): ?string
+    {
+        return $this->database;
+    }
+
+    public function setDatabase(string $database): Tenant
+    {
+        $this->database = $database;
         return $this;
     }
 

@@ -25,13 +25,16 @@ final class TenantManager
     {
         $this->currentTenant = $tenant;
 
-        $this->entityManager->getFilters()
-            ->getFilter('tenant_aware')
-            ->setParameter('tenant', $tenant->getId());
+        $connection = $this->entityManager->getConnection();
+        if(!$connection instanceof TenantDatabaseConnectionWrapper) {
+            throw new NoTenantDatabaseConnectionException();
+        }
+
+        $connection->selectDatabase($tenant);
     }
 
     /**
-     * @throws UnknownTenantException
+     * @throws UnknownTenantException|NoTenantDatabaseConnectionException
      */
     public function setCurrentTenantByDomain(string $domain): void
     {
