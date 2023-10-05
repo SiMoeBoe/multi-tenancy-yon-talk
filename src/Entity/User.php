@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,6 +29,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\ManyToMany(targetEntity: Tenant::class, inversedBy: 'users')]
+    private Collection $tenants;
+
+    public function __construct()
+    {
+        $this->tenants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,5 +106,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Tenant>
+     */
+    public function getTenants(): Collection
+    {
+        return $this->tenants;
+    }
+
+    public function addTenant(Tenant $tenant): static
+    {
+        if (!$this->tenants->contains($tenant)) {
+            $this->tenants->add($tenant);
+        }
+
+        return $this;
+    }
+
+    public function removeTenant(Tenant $tenant): static
+    {
+        $this->tenants->removeElement($tenant);
+
+        return $this;
     }
 }

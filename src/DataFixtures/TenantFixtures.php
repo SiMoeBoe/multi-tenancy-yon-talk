@@ -16,6 +16,7 @@ class TenantFixtures extends Fixture
                 ->setName($tenantData['name'])
                 ->setDomain($tenantData['domain']);
             $manager->persist($tenant);
+            $this->addReference($tenantData['domain'], $tenant);
         }
 
         $manager->flush();
