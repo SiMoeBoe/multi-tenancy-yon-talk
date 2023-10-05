@@ -1,32 +1,47 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '15'
-
-        profiling_collect_backtrace: '%kernel.debug%'
+        default_connection: default
+        connections:
+            landlord:
+                url: '%env(resolve:DATABASE_LANDLORD_URL)%'
+                profiling_collect_backtrace: '%kernel.debug%'
+            default:
+                url: '%env(resolve:DATABASE_TENANT_URL)%'
+                profiling_collect_backtrace: '%kernel.debug%'
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
-        report_fields_where_declared: true
-        validate_xml_mapping: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
-        mappings:
-            App:
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-        filters:
-            tenant_aware:
-                class: App\Tenant\TenantAwareFilter
-                # We activate the filter with no specific tenant to avoid queries without setting the current tenant
-                enabled: true
-                parameters:
-                    tenant: null
+        default_entity_manager: default
+        entity_managers:
+            landlord:
+                connection: landlord
+                report_fields_where_declared: true
+                validate_xml_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                mappings:
+                    App:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity/Landlord'
+                        prefix: App\Entity\Landlord
+                        alias: App
+            default:
+                connection: default
+                report_fields_where_declared: true
+                validate_xml_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                mappings:
+                    App:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity/Tenant'
+                        prefix: App\Entity\Tenant
+                        alias: App
+                filters:
+                    tenant_aware:
+                        class: App\Tenant\TenantAwareFilter
+                        # We activate the filter with no specific tenant to avoid queries without setting the current tenant
+                        enabled: true
+                        parameters:
+                            tenant: null
 
 when@test:
     doctrine:

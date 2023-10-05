@@ -2,12 +2,18 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Tenant;
+use App\Entity\Landlord\Tenant;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class TenantFixtures extends Fixture
+class TenantFixtures extends Fixture implements FixtureGroupInterface
 {
+    public static function getGroups(): array
+    {
+        return ['landlord'];
+    }
+
     public function load(ObjectManager $manager): void
     {
         foreach ($this->getTenants() as $tenantData) {

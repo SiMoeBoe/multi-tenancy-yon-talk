@@ -2,7 +2,7 @@
 
 namespace App\Tenant;
 
-use App\Entity\Tenant;
+use App\Entity\Landlord\Tenant;
 use App\Repository\TenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Tenant;
 
 use App\Repository\BlogPostRepository;
 use App\Tenant\IsTenantSpecificEntity;

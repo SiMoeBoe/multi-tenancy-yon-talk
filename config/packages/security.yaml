@@ -7,8 +7,9 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Landlord\User
                 property: email
+                manager_name: landlord
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

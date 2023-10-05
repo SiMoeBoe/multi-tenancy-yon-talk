@@ -2,23 +2,21 @@
 
 namespace App\Tenant;
 
-use App\Entity\Tenant;
 use Doctrine\ORM\Mapping as ORM;
 
 trait IsTenantSpecificEntity
 {
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Tenant $tenant = null;
+    #[ORM\Column(nullable: false)]
+    private ?int $tenant_id = null;
 
-    public function getTenant(): ?Tenant
+    public function getTenantId(): ?int
     {
-        return $this->tenant;
+        return $this->tenant_id;
     }
 
-    public function setTenant(?Tenant $tenant): static
+    public function setTenantId(?int $tenant): static
     {
-        $this->tenant = $tenant;
+        $this->tenant_id = $tenant;
 
         return $this;
     }
