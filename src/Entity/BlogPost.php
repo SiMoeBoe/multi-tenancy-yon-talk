@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\BlogPostRepository;
+use App\Tenant\IsTenantSpecificEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BlogPostRepository::class)]
 class BlogPost
 {
+    use IsTenantSpecificEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -19,10 +22,6 @@ class BlogPost
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Tenant $tenant = null;
 
     public function getId(): ?int
     {
@@ -49,18 +48,6 @@ class BlogPost
     public function setContent(string $content): static
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getTenant(): ?Tenant
-    {
-        return $this->tenant;
-    }
-
-    public function setTenant(?Tenant $tenant): static
-    {
-        $this->tenant = $tenant;
 
         return $this;
     }

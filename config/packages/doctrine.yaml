@@ -20,6 +20,13 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        filters:
+            tenant_aware:
+                class: App\Tenant\TenantAwareFilter
+                # We activate the filter with no specific tenant to avoid queries without setting the current tenant
+                enabled: true
+                parameters:
+                    tenant: null
 
 when@test:
     doctrine:
