@@ -33,5 +33,15 @@ class TenantFixtures extends Fixture
             'name' => 'Tenant 2',
             'domain' => 'tenant2.localhost'
         ];
+
+        yield [
+            'name' => 'App Tenant 1',
+            'domain' => 'tenant1.app.localhost'
+        ];
+
+        yield [
+            'name' => 'App Tenant 2',
+            'domain' => 'tenant2.app.localhost'
+        ];
     }
 }
