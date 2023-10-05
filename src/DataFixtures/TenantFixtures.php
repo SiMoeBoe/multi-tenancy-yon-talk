@@ -20,7 +20,9 @@ class TenantFixtures extends Fixture implements FixtureGroupInterface
             $tenant = new Tenant();
             $tenant
                 ->setName($tenantData['name'])
-                ->setDomain($tenantData['domain']);
+                ->setDomain($tenantData['domain'])
+                ->setDatabase($tenantData['database'])
+            ;
             $manager->persist($tenant);
             $this->addReference($tenantData['domain'], $tenant);
         }
@@ -32,22 +34,26 @@ class TenantFixtures extends Fixture implements FixtureGroupInterface
     {
         yield [
             'name' => 'Tenant 1',
-            'domain' => 'tenant1.localhost'
+            'domain' => 'tenant1.localhost',
+            'database' => 'tenant'
         ];
 
         yield [
             'name' => 'Tenant 2',
-            'domain' => 'tenant2.localhost'
+            'domain' => 'tenant2.localhost',
+            'database' => 'tenant2'
         ];
 
         yield [
             'name' => 'App Tenant 1',
-            'domain' => 'tenant1.app.localhost'
+            'domain' => 'tenant1.app.localhost',
+            'database' => 'apptenant1'
         ];
 
         yield [
             'name' => 'App Tenant 2',
-            'domain' => 'tenant2.app.localhost'
+            'domain' => 'tenant2.app.localhost',
+            'database' => 'apptenant2'
         ];
     }
 }

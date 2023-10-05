@@ -8,6 +8,7 @@ doctrine:
             default:
                 url: '%env(resolve:DATABASE_TENANT_URL)%'
                 profiling_collect_backtrace: '%kernel.debug%'
+                wrapper_class: App\Tenant\TenantDatabaseConnectionWrapper
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -35,13 +36,6 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Tenant'
                         prefix: App\Entity\Tenant
                         alias: App
-                filters:
-                    tenant_aware:
-                        class: App\Tenant\TenantAwareFilter
-                        # We activate the filter with no specific tenant to avoid queries without setting the current tenant
-                        enabled: true
-                        parameters:
-                            tenant: null
 
 when@test:
     doctrine:
